@@ -28,7 +28,7 @@ public class GroceryItems{
     }
 
     //create object list
-    public boolean itemsList() throws Exception {
+    public void itemsList() throws Exception {
         name = "";
         price = "";
         type = "";
@@ -47,40 +47,54 @@ public class GroceryItems{
 
                 Matcher matcher = colon.matcher(element);
                 while (matcher.find()) {
-                    if (element.substring(0, matcher.end()).matches("\\bn...\\b+:")) {
-                        name = element.substring(matcher.end()).trim();
-                        groceryItem.setName(name);
+                    Pattern namePattern = Pattern.compile("\\bn...\\b+:", Pattern.CASE_INSENSITIVE);
+                    Matcher nameMatcher = namePattern.matcher(element);
+                    if (nameMatcher.find()) {
+                        if (element.substring(matcher.end()).trim().matches("")) {
+                            name = null;
+                        }
+                        else {
+                            name = element.substring(matcher.end()).trim();
+                            groceryItem.setName(name);
+                        }
                     }
-                    if (element.substring(0, matcher.end()).matches("\\bp....\\b+:")) {
-                        price = element.substring(matcher.end()).trim();
-                        groceryItem.setPrice(price);
+                    Pattern pricePattern = Pattern.compile("\\bp....\\b+:", Pattern.CASE_INSENSITIVE);
+                    Matcher priceMatcher = pricePattern.matcher(element);
+                    if (priceMatcher.find()) {
+                        if (element.substring(matcher.end()).trim().matches("")) {
+                            price = null;
+                        }
+                        else {
+                            price = element.substring(matcher.end()).trim();
+                            groceryItem.setPrice(price);
+                        }
                     }
-                    if (element.substring(0, matcher.end()).matches("\\bt...\\b+:")) {
-                        type = element.substring(matcher.end()).trim();
-                        groceryItem.setType(type);
+                    Pattern typePattern = Pattern.compile("\\bt...\\b+:", Pattern.CASE_INSENSITIVE);
+                    Matcher typeMatcher = typePattern.matcher(element);
+                    if (typeMatcher.find()) {
+                        if (element.substring(matcher.end()).trim().matches("")) {
+                            type = null;
+                        }
+                        else {
+                            type = element.substring(matcher.end()).trim();
+                            groceryItem.setType(type);
+                        }
                     }
-                    if (element.substring(0, matcher.end()).matches("\\be.........\\b+:")) {
-                        expiration = element.substring(matcher.end()).trim();
-                        groceryItem.setExpiration(expiration);
+                    Pattern expirationPattern = Pattern.compile("\\be.........\\b+:", Pattern.CASE_INSENSITIVE);
+                    Matcher expirationMatcher = expirationPattern.matcher(element);
+                    if (expirationMatcher.find()) {
+                        if (element.substring(matcher.end()).trim().matches("")) {
+                            expiration = null;
+                        }
+                        else {
+                            expiration = element.substring(matcher.end()).trim();
+                            groceryItem.setExpiration(expiration);
+                        }
                     }
                 }
             }
             allItems.add(groceryItem);
         }
-        return false;
-    }
-
-    public int matchPatterns() {
-        String regEx = "\\bM..k\\b";
-        Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(data);
-        String group = "";
-        int count = 0;
-
-        while (matcher.find()) {
-            count++;
-        }
-        return count;
     }
 
     public String getName() {

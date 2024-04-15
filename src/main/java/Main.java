@@ -13,7 +13,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+        CountItems cI = new CountItems();
+        GroceryItems groceryItems = new GroceryItems();
+
+        groceryItems.itemsList();
+        cI.countItems(groceryItems.allItems);
+        System.out.println(cI);
 
     }
 }
